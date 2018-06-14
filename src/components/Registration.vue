@@ -13,16 +13,12 @@
     export default {
         computed: {
             users () {
-                return this.$store.state.users.filter((user) => {
-                    return !user.registered;
-                });
+                return this.$store.getters.unregisteredUsers
             }    
         },
         methods: {
             registerUser(user) {
-                const date = new Date;
-                user.registered = true;
-                this.$store.state.registrations.push({userId: user.id, name: user.name, date: date.getMonth() + '/' + date.getDay()})               
+              this.$store.dispatch('register', user.id)
             }
         }
     }
